@@ -1,0 +1,18 @@
+
+body {
+    background-color: #dee2e6;
+}
+
+.container-fluid {
+    padding: 0px;
+}
+
+#headline {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 10px;
+}
+
+.col-md-4 {
+    padding: 0px;
+}

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.dao.ChildCategoryMapper">
+  <resultMap id="BaseResultMap" type="ChildCategory">
+    <id column="c_id" jdbcType="INTEGER" property="cId" />
+    <result column="c_name" jdbcType="VARCHAR" property="cName" />
+    <result column="c_desc" jdbcType="VARCHAR" property="cDesc" />
+    <result column="f_id" jdbcType="INTEGER" property="fId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    c_id, c_name, c_desc, f_id
+  </sql>
+  <select id="selectByExample" parameterType="ChildCategoryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from child_category
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from child_category
+    where c_id = #{cId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from child_category
+    where c_id = #{cId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="ChildCategoryExample">
+    delete from child_category
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ChildCategory">
+    insert into child_category (c_id, c_name, c_desc, 
+      f_id)
+    values (#{cId,jdbcType=INTEGER}, #{cName,jdbcType=VARCHAR}, #{cDesc,jdbcType=VARCHAR}, 
+      #{fId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="ChildCategory">
+    insert into child_category
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cId != null">
+        c_id,
+      </if>
+      <if test="cName != null">
+        c_name,
+      </if>
+      <if test="cDesc != null">
+        c_desc,
+      </if>
+      <if test="fId != null">
+        f_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cId != null">
+        #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="cName != null">
+        #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cDesc != null">
+        #{cDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="fId != null">
+        #{fId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ChildCategoryExample" resultType="java.lang.Long">
+    select count(*) from child_category
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update child_category
+    <set>
+      <if test="record.cId != null">
+        c_id = #{record.cId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cName != null">
+        c_name = #{record.cName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cDesc != null">
+        c_desc = #{record.cDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fId != null">
+        f_id = #{record.fId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update child_category
+    set c_id = #{record.cId,jdbcType=INTEGER},
+      c_name = #{record.cName,jdbcType=VARCHAR},
+      c_desc = #{record.cDesc,jdbcType=VARCHAR},
+      f_id = #{record.fId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ChildCategory">
+    update child_category
+    <set>
+      <if test="cName != null">
+        c_name = #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cDesc != null">
+        c_desc = #{cDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="fId != null">
+        f_id = #{fId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ChildCategory">
+    update child_category
+    set c_name = #{cName,jdbcType=VARCHAR},
+      c_desc = #{cDesc,jdbcType=VARCHAR},
+      f_id = #{fId,jdbcType=INTEGER}
+    where c_id = #{cId,jdbcType=INTEGER}
+  </update>
+</mapper>
