@@ -76,4 +76,17 @@ public class UserController {
         session.setAttribute("isLogin",newUser);
         return "redirect:usercenter";
     }
+    @RequestMapping("/otherinfo")
+    public ModelAndView otherinfo(Integer userId,HttpSession session){
+        ModelAndView modelAndView = new ModelAndView();
+        User loginUser = (User) session.getAttribute("isLogin");
+        if(loginUser!=null&&loginUser.getuId()==userId){
+            modelAndView.setViewName("usercenter");
+            return modelAndView;
+        }
+        User user = userService.getById(userId);
+        modelAndView.addObject("user",user);
+        modelAndView.setViewName("otherinfo");
+        return modelAndView;
+    }
 }

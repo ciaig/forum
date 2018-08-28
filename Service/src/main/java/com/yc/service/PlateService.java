@@ -19,4 +19,8 @@ public interface PlateService {
     List<Discuss> getDiscussByPid(Integer getpId);
 
     void postDiscuss(Discuss discuss);
+
+    List<Plate> getPlateListOrderByTime();
+
+    List<Plate> getPlateListOrderByDisscuss();
 }

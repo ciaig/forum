@@ -24,7 +24,7 @@
         <property name="mapperLocations" value="classpath:com/yc/mapper/*.xml"/>
     </bean>
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="sqlSessionFactoryBeanName" value="ssf"/>
+        <!--<property name="sqlSessionFactoryBeanName" value="ssf"/>-->
         <property name="basePackage" value="com.yc.dao"/>
     </bean>
     <bean name="tsman" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

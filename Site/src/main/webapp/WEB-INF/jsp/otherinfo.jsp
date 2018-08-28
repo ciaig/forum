@@ -1,3 +1,5 @@
+<%@page language="java" contentType="text/html; utf-8" pageEncoding="utf-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +30,7 @@
     </style>
     <script type="application/javascript">
         $(function () {
-            $("#head").load("common/nav.html");
+            $("#head").load("common/nav.jsp");
             $("#foot").load("common/foot.html");
         })
     </script>
@@ -38,10 +40,10 @@
 <div class="container-fluid">
     <div id="user">
         <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="../image/16.jpg" width="80px" height="200px" alt="Card image cap">
+            <img class="card-img-top" src="/resources/headimg/${user.headImg}" width="80px" height="200px" alt="Card image cap">
             <div class="card-body">
-                <h5 class="card-title">罗老师</h5>
-                <p class="card-text">我觉得搞我的都是垃圾</p>
+                <h5 class="card-title">${user.uName}</h5>
+                <p class="card-text">${user.uDesc}</p>
                 <a href="#" class="btn btn-primary">关注他</a>
             </div>
         </div>

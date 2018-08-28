@@ -74,4 +74,19 @@ public class PlateServiceImpl implements PlateService {
         discussMapper.insert(discuss);
     }
 
+    @Override
+    public List<Plate> getPlateListOrderByTime() {
+        PlateExample plateExample = new PlateExample();
+        plateExample.setOrderByClause("p_id desc");
+        List<Plate> plates = plateMapper.selectByExample(plateExample);
+        return plates;
+    }
+
+    @Override
+    public List<Plate> getPlateListOrderByDisscuss() {
+        PlateExample plateExample = new PlateExample();
+        List<Plate> plates = plateMapper.selectByExample(plateExample);
+        return plates;
+    }
+
 }

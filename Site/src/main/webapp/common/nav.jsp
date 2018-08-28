@@ -9,10 +9,10 @@
             <a class="navbar-brand" href="/index">XXX论坛</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="overlook.html">最新 <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/overlook?order=byTime">最新 <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="overlook.html">排行</a>
+                    <a class="nav-link" href="/overlook?order=discuss">排行</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="overlook.html">总览</a>

@@ -68,7 +68,7 @@
             <div class="card-body">
                 <h5 class="card-title">${postuser.uName}</h5>
                 <p class="card-text">${postuser.uDesc}</p>
-                <a href="otherinfo.html" class="btn btn-primary">他的空间</a>
+                <a href="/otherinfo?userId=${postuser.uId}" class="btn btn-primary">他的空间</a>
                 <a href="#" class="btn btn-primary">关注</a>
             </div>
         </div>
@@ -79,7 +79,9 @@
             <button type="button" class="btn btn-success" style="float: right">收藏</button>
             <p>
                 ${detial.dContent}
+                <small style="float: right">${detial.dCreatetime}</small>
             </p>
+
         </div>
         <div id="comment">
             <ul class="list-group">
