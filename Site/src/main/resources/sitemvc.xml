@@ -29,6 +29,7 @@
             <mvc:mapping path="/postdetial"/>
             <mvc:mapping path="/postplate"/>
             <mvc:mapping path="/postdiscuss"/>
+            <mvc:mapping path="/follow"/>
             <bean class="com.yc.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

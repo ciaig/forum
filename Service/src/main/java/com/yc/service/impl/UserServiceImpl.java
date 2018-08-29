@@ -1,6 +1,9 @@
 package com.yc.service.impl;
 
+import com.yc.dao.FollowMapper;
 import com.yc.dao.UserMapper;
+import com.yc.domain.Follow;
+import com.yc.domain.FollowExample;
 import com.yc.domain.User;
 import com.yc.domain.UserExample;
 import com.yc.service.UserService;
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +20,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
-
+    @Autowired
+    private FollowMapper followMapper;
     @Override
     @Transactional
     public void registe(User user){
@@ -65,5 +70,37 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getById(Integer getuId) {
         return userMapper.selectByPrimaryKey(getuId);
+    }
+
+    @Override
+    public List<User> getFollowListByuId(Integer userId) {
+        List<User> userList=new ArrayList<>();
+        FollowExample followExample = new FollowExample();
+        followExample.createCriteria().andUIdEqualTo(userId);
+        List<Follow> followList = followMapper.selectByExample(followExample);
+        for(Follow follow:followList){
+            User user = userMapper.selectByPrimaryKey(follow.getfId());
+            userList.add(user);
+        }
+        return userList;
+    }
+
+    @Override
+    @Transactional
+    public void folllow(Integer loginId, Integer userId) {
+        if(userId==loginId){
+            throw new RuntimeException("不能关注自己");
+        }
+        FollowExample followExample = new FollowExample();
+        FollowExample.Criteria criteria = followExample.createCriteria();
+        criteria.andUIdEqualTo(loginId);
+        criteria.andFIdEqualTo(userId);
+        if(followMapper.selectByExample(followExample).size()!=0){
+            throw new RuntimeException("已关注");
+        }
+        Follow follow = new Follow();
+        follow.setuId(loginId);
+        follow.setfId(userId);
+        followMapper.insert(follow);
     }
 }

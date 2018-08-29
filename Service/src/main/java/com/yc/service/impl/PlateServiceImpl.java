@@ -89,4 +89,12 @@ public class PlateServiceImpl implements PlateService {
         return plates;
     }
 
+    @Override
+    public List<Plate> getPlateListByUserId(Integer uId) {
+        PlateExample plateExample = new PlateExample();
+        plateExample.createCriteria().andUserIdEqualTo(uId);
+        List<Plate> plateList = plateMapper.selectByExample(plateExample);
+        return plateList;
+    }
+
 }

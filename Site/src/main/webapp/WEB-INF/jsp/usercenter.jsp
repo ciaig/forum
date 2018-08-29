@@ -52,7 +52,7 @@
         <div>
             <ul class="list-group" id="favorite">
                 <a href="#" class="list-group-item">收藏夹 <span class="badge badge-secondary">12</span></a>
-                <a href="#" class="list-group-item">关注的人<span class="badge badge-secondary">13</span></a>
+                <a href="/followlist?userId=${isLogin.uId}" class="list-group-item">关注的人<span class="badge badge-secondary">13</span></a>
                 <a href="#" class="list-group-item">评论的帖子<span class="badge badge-secondary">1</span></a>
                 <a href="#" class="list-group-item">回复我的<span class="badge badge-secondary">2</span></a>
             </ul>
@@ -60,10 +60,9 @@
         <div id="detial" style="margin-top: 5px">
             <ul class="list-group">
                 <li class="list-group-item disabled">我的帖子</li>
-                <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-                <a href="#" class="list-group-item">Morbi leo risus</a>
-                <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item">更多</a>
+                <c:forEach items="${platelist}" var="plate">
+                    <a href="/detial?detialId=${plate.pId}" class="list-group-item">${plate.pTitle}</a>
+                </c:forEach>
             </ul>
         </div>
     </div>

@@ -23,4 +23,6 @@ public interface PlateService {
     List<Plate> getPlateListOrderByTime();
 
     List<Plate> getPlateListOrderByDisscuss();
+
+    List<Plate> getPlateListByUserId(Integer getuId);
 }

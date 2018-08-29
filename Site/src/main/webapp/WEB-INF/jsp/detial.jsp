@@ -69,7 +69,7 @@
                 <h5 class="card-title">${postuser.uName}</h5>
                 <p class="card-text">${postuser.uDesc}</p>
                 <a href="/otherinfo?userId=${postuser.uId}" class="btn btn-primary">他的空间</a>
-                <a href="#" class="btn btn-primary">关注</a>
+                <a href="/follow?userId=${postuser.uId}&loginId=${isLogin.uId}" class="btn btn-primary">关注</a>
             </div>
         </div>
     </div>

@@ -1,6 +1,8 @@
 package com.yc.controller;
 
+import com.yc.domain.Plate;
 import com.yc.domain.User;
+import com.yc.service.PlateService;
 import com.yc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,13 +17,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
 public class UserController {
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private PlateService plateService;
     @RequestMapping("registe")
     public ModelAndView registe(User user){
         ModelAndView modelAndView = new ModelAndView();
@@ -50,8 +54,11 @@ public class UserController {
         return "redirect:index";
     }
     @RequestMapping("/usercenter")
-    public ModelAndView usercenter(){
+    public ModelAndView usercenter(HttpSession session){
         ModelAndView modelAndView = new ModelAndView();
+        User user=(User)session.getAttribute("isLogin");
+        List<Plate> plateList=plateService.getPlateListByUserId(user.getuId());
+        modelAndView.addObject("platelist",plateList);
         modelAndView.setViewName("usercenter");
         return modelAndView;
     }
@@ -81,12 +88,30 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         User loginUser = (User) session.getAttribute("isLogin");
         if(loginUser!=null&&loginUser.getuId()==userId){
-            modelAndView.setViewName("usercenter");
+            modelAndView.setViewName("redirect:usercenter");
             return modelAndView;
         }
         User user = userService.getById(userId);
+        List<Plate> plateList = plateService.getPlateListByUserId(userId);
+        modelAndView.addObject("platelist",plateList);
         modelAndView.addObject("user",user);
         modelAndView.setViewName("otherinfo");
+        return modelAndView;
+    }
+    @RequestMapping("/followlist")
+    public ModelAndView followlist(Integer userId){
+        ModelAndView modelAndView = new ModelAndView();
+        List<User> users=userService.getFollowListByuId(userId);
+        modelAndView.addObject("users",users);
+        modelAndView.setViewName("followlist");
+        return modelAndView;
+    }
+    @RequestMapping("/follow")
+    public ModelAndView follow(Integer userId,Integer loginId){
+        ModelAndView modelAndView = new ModelAndView();
+        userService.folllow(loginId,userId);
+        modelAndView.addObject("infoMsg","关注成功");
+        modelAndView.setViewName("info");
         return modelAndView;
     }
 }
